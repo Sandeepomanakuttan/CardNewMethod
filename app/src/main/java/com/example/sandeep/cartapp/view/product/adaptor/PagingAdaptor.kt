@@ -10,6 +10,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandeep.cartapp.R
+import com.example.sandeep.cartapp.view.product.model.ProductData
 
 class PagingAdaptor() : PagingDataAdapter<ProductData,PagingAdaptor.PagViewModel>(COMPARATOR) {
 

@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandeep.cartapp.R
 import com.example.sandeep.cartapp.view.product.UtilInterface
-import com.example.sandeep.cartapp.view.product.adaptor.DeleteData
-import com.example.sandeep.cartapp.view.product.adaptor.UpdateData
+import com.example.sandeep.cartapp.view.product.model.DeleteData
+import com.example.sandeep.cartapp.view.product.model.UpdateData
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein

@@ -14,11 +14,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandeep.cartapp.R
 import com.example.sandeep.cartapp.view.product.MainInterface
-import com.example.sandeep.cartapp.view.product.adaptor.AddCart
+import com.example.sandeep.cartapp.view.product.model.AddCart
 import com.example.sandeep.cartapp.view.product.viewModel.AllProRecyclerViewAdaptor
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance

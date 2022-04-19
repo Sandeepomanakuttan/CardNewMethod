@@ -1,4 +1,4 @@
-package com.example.sandeep.cartapp.view.product.adaptor
+package com.example.sandeep.cartapp.view.product.model
 
 data class ProductData(
     var pkProductId: String? = null,
@@ -69,7 +69,7 @@ data class AddCart(
     val strStoreName:String="")
 
 
-data class AddResponse(val data:AddCart)
+data class AddResponse(val data: AddCart)
 
 data class UpdateResponse(val success: Boolean?,
                           val message: String?,

@@ -4,7 +4,7 @@ package com.example.sandeep.cartapp.view.product.allProduct.repository
 import android.util.Log
 import com.example.sandeep.cartapp.network.ApiServices
 import com.example.sandeep.cartapp.di.RetroInstance
-import com.example.sandeep.cartapp.view.product.adaptor.*
+import com.example.sandeep.cartapp.view.product.model.*
 import com.example.sandeep.cartapp.view.product.utils.APiException
 import com.example.sandeep.cartapp.view.product.utils.SafeApiRequest
 import kotlinx.coroutines.*
@@ -17,7 +17,7 @@ class MainRepository : SafeApiRequest() {
 
 
 
-    private suspend fun addCart(data: AddCart): AddCrtResponse{
+    private suspend fun addCart(data: AddCart): AddCrtResponse {
         return withContext(Dispatchers.IO){apiRequest {
             retroService.addCart(data)}
         }
@@ -40,7 +40,7 @@ class MainRepository : SafeApiRequest() {
         Log.e("printing data",result.toString())
         if (result?.size!=0){
             val cartData = result?.get(0)
-            val upData=UpdateData()
+            val upData= UpdateData()
             upData.intQuantity=cartData?.intQuantity?.plus(1)
             upData.strLoginUserId=data.strLoginUserId
             upData.strProductId=data.strProductId

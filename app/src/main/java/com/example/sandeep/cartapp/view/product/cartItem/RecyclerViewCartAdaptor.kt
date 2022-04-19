@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.sandeep.cartapp.R
 import com.example.sandeep.cartapp.view.product.UtilInterface
-import com.example.sandeep.cartapp.view.product.adaptor.CartData
-import com.example.sandeep.cartapp.view.product.adaptor.DeleteData
-import com.example.sandeep.cartapp.view.product.adaptor.UpdateData
+import com.example.sandeep.cartapp.view.product.model.CartData
+import com.example.sandeep.cartapp.view.product.model.DeleteData
+import com.example.sandeep.cartapp.view.product.model.UpdateData
 import kotlinx.coroutines.launch
 
 class RecyclerViewCartAdaptor(

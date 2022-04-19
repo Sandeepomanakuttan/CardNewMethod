@@ -3,6 +3,8 @@ package com.example.sandeep.cartapp.view.product.adaptor
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.sandeep.cartapp.network.ApiServices
+import com.example.sandeep.cartapp.view.product.model.ProductBody
+import com.example.sandeep.cartapp.view.product.model.ProductData
 
 
 class PagingSources(private val api :ApiServices): PagingSource<Int, ProductData>() {

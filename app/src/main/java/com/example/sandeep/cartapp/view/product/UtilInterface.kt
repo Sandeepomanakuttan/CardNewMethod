@@ -1,8 +1,8 @@
 package com.example.sandeep.cartapp.view.product
 
-import com.example.sandeep.cartapp.view.product.adaptor.AddCart
-import com.example.sandeep.cartapp.view.product.adaptor.DeleteData
-import com.example.sandeep.cartapp.view.product.adaptor.UpdateData
+import com.example.sandeep.cartapp.view.product.model.AddCart
+import com.example.sandeep.cartapp.view.product.model.DeleteData
+import com.example.sandeep.cartapp.view.product.model.UpdateData
 
 interface UtilInterface {
 
@@ -11,5 +11,5 @@ interface UtilInterface {
 }
 
 interface MainInterface{
-    suspend fun addCart(data:AddCart)
+    suspend fun addCart(data: AddCart)
 }

@@ -2,7 +2,7 @@ package com.example.sandeep.cartapp.response
 
 import com.example.sandeep.cartapp.network.ApiServices
 import com.example.sandeep.cartapp.di.RetroInstance
-import com.example.sandeep.cartapp.view.product.adaptor.*
+import com.example.sandeep.cartapp.view.product.model.*
 import com.example.sandeep.cartapp.view.product.utils.SafeApiRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -27,7 +27,7 @@ class CartRepository : SafeApiRequest() {
 
     }
 
-    suspend fun deleteCart(data: DeleteData) : UpdateResponse{
+    suspend fun deleteCart(data: DeleteData) : UpdateResponse {
         return withContext(Dispatchers.IO){apiRequest {
             retroService.deleteCart(data)}
         }
