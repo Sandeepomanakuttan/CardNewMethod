@@ -51,7 +51,9 @@ class CartItem : Fragment(),UtilInterface {
 
     override fun onResume() {
         super.onResume()
-        calling()
+       lifecycleScope.launch {   viewModel?.get()
+           calling()}
+
     }
 
     override fun onDestroy() {

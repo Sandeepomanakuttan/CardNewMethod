@@ -26,6 +26,10 @@ class CartItemViewModel(private val repository: CartRepository) : ViewModel() {
 
     }
 
+    suspend fun get(){
+        cardItem.value=repository.getCartList()
+    }
+
     suspend fun updateCart(data: UpdateData) {
 
             val status = repository.updateData(data = data)
