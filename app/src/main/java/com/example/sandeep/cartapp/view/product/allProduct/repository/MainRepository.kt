@@ -3,27 +3,29 @@ package com.example.sandeep.cartapp.view.product.allProduct.repository
 
 import android.util.Log
 import com.example.sandeep.cartapp.network.ApiServices
-import com.example.sandeep.cartapp.network.RetroInstance
+import com.example.sandeep.cartapp.di.RetroInstance
 import com.example.sandeep.cartapp.view.product.adaptor.*
+import com.example.sandeep.cartapp.view.product.utils.APiException
+import com.example.sandeep.cartapp.view.product.utils.SafeApiRequest
 import kotlinx.coroutines.*
 
 
-class MainRepository {
+class MainRepository : SafeApiRequest() {
 
-    private val retroService: ApiServices by lazy { RetroInstance.getRetofitClient().create(ApiServices::class.java) }
-
-
+    private val retroService: ApiServices by lazy { RetroInstance.getRetrofitClient().create(ApiServices::class.java) }
 
 
-    suspend fun addCart(data: AddCart): Boolean?{
-        return withContext(Dispatchers.IO){
-            retroService.addCart(data).body()?.success
+
+
+    private suspend fun addCart(data: AddCart): AddCrtResponse{
+        return withContext(Dispatchers.IO){apiRequest {
+            retroService.addCart(data)}
         }
     }
 
 
-    private suspend fun updateData(data: UpdateData): Boolean? {
-        return withContext(Dispatchers.IO){retroService.updateCart(data).body()?.success}
+    private suspend fun updateData(data: UpdateData): UpdateResponse {
+        return withContext(Dispatchers.IO){apiRequest {retroService.updateCart(data)}}
 
     }
 
@@ -44,17 +46,36 @@ class MainRepository {
             upData.strProductId=data.strProductId
             upData.strStoreId=data.strStoreId
 
-            if(updateData(upData)==true){
-                return true
+            try {
+                val response = updateData(upData)
+
+                response.success?.let {
+                    return it
+                }
+            }catch (e: APiException){
+                Log.e("Update Main",e.message!!)
             }
+
+        }else{
+            try {
+                val res = addCart(data)
+
+                res.success?.let { its->
+                    if (its){
+                        Log.e("Add Cart","Successfully added")
+                        return true
+                    }else{
+                        return false
+                    }
+                }
+
+            }catch (e: APiException){
+                Log.e("Add cart",e.message!!)
+            }
+
         }
 
 
-        result.let {
-            if (addCart(data) == true){
-                return true
-            }
-        }
 
         return false
     }

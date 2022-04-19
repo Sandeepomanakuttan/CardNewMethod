@@ -7,7 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.sandeep.cartapp.network.ApiServices
-import com.example.sandeep.cartapp.network.RetroInstance
+import com.example.sandeep.cartapp.di.RetroInstance
 import com.example.sandeep.cartapp.view.product.adaptor.*
 import com.example.sandeep.cartapp.view.product.allProduct.repository.MainRepository
 
@@ -15,7 +15,7 @@ class AllProductViewModel(val repository : MainRepository) : ViewModel() {
 
 
     private val retroService: ApiServices by lazy {
-        RetroInstance.getRetofitClient().create(
+        RetroInstance.getRetrofitClient().create(
             ApiServices::class.java
         )
     }

@@ -16,10 +16,16 @@ import com.example.sandeep.cartapp.view.product.UtilInterface
 import com.example.sandeep.cartapp.view.product.adaptor.DeleteData
 import com.example.sandeep.cartapp.view.product.adaptor.UpdateData
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
-class CartItem : Fragment(),UtilInterface {
 
+class CartItem : Fragment(),UtilInterface,KodeinAware {
 
+    override val kodein by closestKodein()
+
+    private val factory : CartItemViewModelProvider by instance()
     private var viewModel: CartItemViewModel?=null
     private lateinit var recycler: RecyclerView
 
@@ -27,7 +33,7 @@ class CartItem : Fragment(),UtilInterface {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        ViewModelProvider(this, CartItemViewModelProvider())[CartItemViewModel::class.java].also { viewModel = it }
+        ViewModelProvider(this, factory)[CartItemViewModel::class.java].also { viewModel = it }
 
         val root = inflater.inflate(R.layout.cart_item_fragment, container, false)
         recycler=root.findViewById(R.id.recyclerView)

@@ -18,11 +18,17 @@ import com.example.sandeep.cartapp.view.product.adaptor.AddCart
 import com.example.sandeep.cartapp.view.product.viewModel.AllProRecyclerViewAdaptor
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
 
-class AllProduct : Fragment(), MainInterface {
+class AllProduct : Fragment(), MainInterface,KodeinAware {
 
 
+    override val kodein by closestKodein()
+    private val factory : AllProductViewModelProvider by instance()
     private lateinit var viewModel: AllProductViewModel
     private lateinit var recycler:RecyclerView
     private lateinit var recyclerViewAda : AllProRecyclerViewAdaptor
@@ -71,7 +77,6 @@ class AllProduct : Fragment(), MainInterface {
     }
 
     private fun setupViewModel() {
-       val factory =AllProductViewModelProvider()
         viewModel = ViewModelProvider(this,factory )[AllProductViewModel::class.java]
 
     }
