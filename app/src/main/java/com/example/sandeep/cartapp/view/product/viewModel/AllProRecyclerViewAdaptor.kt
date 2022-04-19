@@ -36,7 +36,7 @@ class AllProRecyclerViewAdaptor(
         private val txtProductDec = view.findViewById(R.id.txtProductDec) as TextView
         private val txtRate = view.findViewById(R.id.txtRate) as TextView
         private val countId = view.findViewById(R.id.count) as TextView
-        val btnMinus = view.findViewById(R.id.btnMinus) as Button
+        private val btnMinus = view.findViewById(R.id.btnMinus) as Button
         private val btnPlus = view.findViewById(R.id.btnPlus) as Button
 
         fun bindView(data: ProductData) {
@@ -58,10 +58,10 @@ class AllProRecyclerViewAdaptor(
 
             btnPlus.setOnClickListener {
                 count = count.plus(1)
-                val data = AddCart(count, userId, data.pkProductId, data.strProductName, storeId)
+                val cartData = AddCart(count, userId, data.pkProductId, data.strProductName, storeId)
                 lifecycleScope.launch {
 
-                    listener.addCart(data)
+                    listener.addCart(cartData)
 
                 }
                 countId.text = count.toString()
@@ -91,6 +91,3 @@ class AllProRecyclerViewAdaptor(
 
 }
 
-interface CallBacker {
-    fun addCart(data: AddCart)
-}

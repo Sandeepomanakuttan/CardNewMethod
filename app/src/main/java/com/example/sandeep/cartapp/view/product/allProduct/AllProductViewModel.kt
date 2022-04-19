@@ -1,7 +1,6 @@
 package com.example.sandeep.cartapp.view.product.allProduct
 
 import android.util.Log
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
@@ -14,9 +13,6 @@ import com.example.sandeep.cartapp.view.product.allProduct.repository.MainReposi
 
 class AllProductViewModel(val repository : MainRepository) : ViewModel() {
 
-    init {
-
-    }
 
     private val retroService: ApiServices by lazy {
         RetroInstance.getRetofitClient().create(
@@ -33,17 +29,13 @@ class AllProductViewModel(val repository : MainRepository) : ViewModel() {
     suspend fun addCart(data : AddCart){
         val status = repository.checkCart(data)
 
-        if (status==true){
+        if (status){
             Log.e("Cart Update","Successfully Added")
         }else{
             Log.e("Cart Update","Fail Added")
         }
     }
 
-    fun lifecycleOwner(viewLifecycleOwner: LifecycleOwner) {
-        repository.viewLifecycleOwner = viewLifecycleOwner
-
-    }
 
 
 

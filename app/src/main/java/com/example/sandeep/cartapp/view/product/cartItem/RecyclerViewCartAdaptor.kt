@@ -17,9 +17,7 @@ import com.example.sandeep.cartapp.view.product.UtilInterface
 import com.example.sandeep.cartapp.view.product.adaptor.CartData
 import com.example.sandeep.cartapp.view.product.adaptor.DeleteData
 import com.example.sandeep.cartapp.view.product.adaptor.UpdateData
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 class RecyclerViewCartAdaptor(
     private val requireContext: Context,
@@ -28,26 +26,77 @@ class RecyclerViewCartAdaptor(
     val lifecycleScope: LifecycleCoroutineScope
 ) : RecyclerView.Adapter<RecyclerViewCartAdaptor.ItemViewHolder>() {
 
-    private val loginId = "5eb1b87073ebc514e3fbc5fc";
+    private val loginId = "5eb1b87073ebc514e3fbc5fc"
     private val storeId = "6232d4063142bf316c2ed3b0"
 
-    var itemClickListener: ((position: Int, name: String) -> Unit)? = null
 
 
     inner class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        //fun bindView(data:String , position: Int){
 
-        // }
+        private val imgProduct: ImageView = view.findViewById(R.id.imgProduct)!!
+        private val txtProductName = view.findViewById(R.id.txtProductName) as TextView
+        private val count = view.findViewById(R.id.count) as TextView
+        private val txtRate = view.findViewById(R.id.txtRate) as TextView
+        private val btnMinus = view.findViewById(R.id.btnMinus) as Button
+        private val btnPlus = view.findViewById(R.id.btnPlus) as Button
+        private val delete: ImageView = view.findViewById(R.id.delete)
 
-        val imgProduct = view.findViewById<ImageView>(R.id.imgProduct)!!
-        val txtProductName = view.findViewById(R.id.txtProductName) as TextView
-        val txtProductDec = view.findViewById(R.id.txtProductDec) as TextView
-        val count = view.findViewById(R.id.count) as TextView
-        val txtRate = view.findViewById(R.id.txtRate) as TextView
-        val btnMinus = view.findViewById(R.id.btnMinus) as Button
-        val btnPlus = view.findViewById(R.id.btnPlus) as Button
-        val delete = view.findViewById(R.id.delete) as ImageView
+        @SuppressLint("SetTextI18n")
+        fun bindView(cartData: CartData) {
+
+            txtProductName.text = cartData.strProductName
+            txtRate.text = "INR " + cartData.intSellingPrice.toString()
+            count.text = cartData.intQuantity.toString()
+            val c = cartData.arrayThumbnail!![0]
+
+            Glide.with(requireContext).load(c.imageUrl.toString()).into(imgProduct)
+
+            var a = cartData.intQuantity
+
+            btnMinus.setOnClickListener {
+
+                if (a != 1) {
+                    Log.e("id", cartData.pkProductId.toString())
+                    a = a?.minus(1)
+                    val data = UpdateData(a, loginId, cartData.pkProductId, storeId)
+
+                    lifecycleScope.launch {
+
+                        objInterface.updateCart(data)
+
+                    }
+
+
+                    count.text = a.toString()
+                }
+            }
+           btnPlus.setOnClickListener {
+                a = a?.plus(1)
+                val data = UpdateData(a, loginId, cartData.pkProductId, storeId)
+
+                lifecycleScope.launch {
+                    objInterface.updateCart(data)
+                }
+
+
+               count.text = a.toString()
+            }
+
+            delete.visibility = View.VISIBLE
+            delete.let {
+                it.setOnClickListener {
+                    val data = DeleteData(loginId, cartData.pkProductId, storeId)
+
+                    lifecycleScope.launch {
+
+                        objInterface.deleteCart(data)
+
+                    }
+
+                }
+            }
+        }
 
 
     }
@@ -59,59 +108,8 @@ class RecyclerViewCartAdaptor(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val lister = data[position]
-        holder.txtProductName.text = lister.strProductName
-        holder.txtRate.text = "INR " + lister.intSellingPrice.toString()
-        holder.count.text = lister.intQuantity.toString()
-        val c = lister.arrayThumbnail!![0]
 
-        Glide.with(requireContext).load(c.imageUrl.toString()).into(holder.imgProduct)
-
-        var a = lister.intQuantity
-
-        holder.btnMinus.setOnClickListener {
-
-            if (a != 1) {
-                Log.e("id", lister.pkProductId.toString())
-                a = a?.minus(1)
-                val data = UpdateData(a, loginId, lister.pkProductId, storeId)
-
-                lifecycleScope.launch {
-
-                    objInterface.updateCart(data)
-
-                }
-
-
-                holder.count.text = a.toString()
-            }
-        }
-        holder.btnPlus.setOnClickListener {
-            a = a?.plus(1)
-            val data = UpdateData(a, loginId, lister.pkProductId, storeId)
-
-            lifecycleScope.launch {
-                objInterface.updateCart(data)
-            }
-
-
-            holder.count.text = a.toString()
-        }
-
-        holder.delete.visibility = View.VISIBLE
-        holder.delete.let {
-            it.setOnClickListener {
-                val data = DeleteData(loginId, lister.pkProductId, storeId)
-
-                lifecycleScope.launch {
-
-                    objInterface.deleteCart(data)
-
-                }
-
-            }
-        }
-
+        holder.bindView(data[position])
 
     }
 

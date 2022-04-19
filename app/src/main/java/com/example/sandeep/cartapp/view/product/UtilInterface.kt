@@ -1,7 +1,6 @@
 package com.example.sandeep.cartapp.view.product
 
 import com.example.sandeep.cartapp.view.product.adaptor.AddCart
-import com.example.sandeep.cartapp.view.product.adaptor.CartData
 import com.example.sandeep.cartapp.view.product.adaptor.DeleteData
 import com.example.sandeep.cartapp.view.product.adaptor.UpdateData
 

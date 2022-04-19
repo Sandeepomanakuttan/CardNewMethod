@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sandeep.cartapp.R
 import com.example.sandeep.cartapp.view.product.UtilInterface
-import com.example.sandeep.cartapp.view.product.adaptor.AddCart
 import com.example.sandeep.cartapp.view.product.adaptor.DeleteData
 import com.example.sandeep.cartapp.view.product.adaptor.UpdateData
 import kotlinx.coroutines.launch
@@ -21,14 +20,14 @@ import kotlinx.coroutines.launch
 class CartItem : Fragment(),UtilInterface {
 
 
-    var viewModel: CartItemViewModel?=null
+    private var viewModel: CartItemViewModel?=null
     private lateinit var recycler: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this, CartItemViewModelProvider())[CartItemViewModel::class.java]
+        ViewModelProvider(this, CartItemViewModelProvider())[CartItemViewModel::class.java].also { viewModel = it }
 
         val root = inflater.inflate(R.layout.cart_item_fragment, container, false)
         recycler=root.findViewById(R.id.recyclerView)

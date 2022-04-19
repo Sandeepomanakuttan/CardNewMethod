@@ -9,8 +9,6 @@ import retrofit2.http.POST
 
 interface ApiServices {
 
-    @POST("product/get_product_under_category")
-    fun getProduct(@Body items: ProductBody) : Call<ProductResponse>
 
     @POST("cart/get_cart")
     suspend fun getCart(@Body items: CartBody) : Response<CartResponse>

@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sandeep.cartapp.R
 import com.example.sandeep.cartapp.view.product.MainInterface
 import com.example.sandeep.cartapp.view.product.adaptor.AddCart
-import com.example.sandeep.cartapp.view.product.adaptor.DeleteData
-import com.example.sandeep.cartapp.view.product.adaptor.UpdateData
 import com.example.sandeep.cartapp.view.product.viewModel.AllProRecyclerViewAdaptor
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -53,9 +51,6 @@ class AllProduct : Fragment(), MainInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //viewModel.getProductList()
-
-        viewModel.lifecycleOwner(viewLifecycleOwner)
 
     }
 
